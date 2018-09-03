@@ -68,3 +68,4 @@ async def b64decode(ctx):
 
 
 # Login token
+client.run('YOUR TOKEN HERE')
