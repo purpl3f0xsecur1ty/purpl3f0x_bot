@@ -95,7 +95,7 @@ async def on_message(message):
 
     if "fox" in message.content.lower():
         await client.add_reaction(message, "🦊")
-
+    await client.process_commands(message) # Without this command the bot will not carry out any commands!!
 
 # Login token
 # Note that this line must come LAST
