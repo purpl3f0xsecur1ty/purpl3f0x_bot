@@ -1,3 +1,5 @@
+# Import the required libraries
+
 import discord
 import hashlib
 import base64
@@ -22,6 +24,8 @@ async def on_ready():
         print('Joined: {}'.format(server.name))
         print(server.default_channel)
 
+# Commands start here
+# Basic info command
 
 @client.command(pass_context=True)
 async def info(ctx):
@@ -32,14 +36,20 @@ async def info(ctx):
                     "For a list of current commands type `f.commands`\n"
                     "Note: This bot is experimental and is often offline.")
 
+# Help command
 
 @client.command(pass_context=True)
 async def commands(ctx):
     await client.say("***List of commands:***\n"
                     "`f.md5 <text>` - Calculate an MD5 hash\n"
+                    "`f.sha1 <text>` - Calculate a SHA1 hash\n"
+                    "`f.sha256 <text>` - Calculate a SHA256 hash\n"
                     "`f.b64encode <text>` - Encode text with Base64\n"
                     "`f.b64decode <b64 encoded text>` - Decode Base64"
                     )
+
+# Begin cryptography commands
+# Hashing commands
 
 @client.command(pass_context=True)
 async def md5(ctx):
@@ -47,6 +57,22 @@ async def md5(ctx):
     message = ' '.join(params)
 
     await client.say(hashlib.md5(message.encode('utf-8')).hexdigest())
+
+@client.command(pass_context=True)
+async def sha1(ctx):
+    params = ctx.message.content.split()[1:]
+    message = ' '.join(params)
+
+    await client.say(hashlib.sha1(message.encode('utf-8')).hexdigest())
+
+@client.command(pass_context=True)
+async def sha256(ctx):
+    params = ctx.message.content.split()[1:]
+    message = ' '.join(params)
+
+    await client.say(hashlib.sha256(message.encode('utf-8')).hexdigest())
+
+# Base64 commands
 
 @client.command(pass_context=True)
 async def b64encode(ctx):
@@ -62,10 +88,15 @@ async def b64decode(ctx):
 
     await client.say(base64.b64decode(message).decode('utf-8'))
 
-#    if message.content.startswith('f!base64'):
-#        base = base64.b64encode(b'message.content').strip()
-#        await client.say(base)
+# Just for fun:
+# Checks for a string and reacts
+@client.event
+async def on_message(message):
+
+    if "fox" in message.content.lower():
+        await client.add_reaction(message, "🦊")
 
 
 # Login token
+# Note that this line must come LAST
 client.run('YOUR TOKEN HERE')
