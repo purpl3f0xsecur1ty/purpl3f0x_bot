@@ -157,4 +157,4 @@ async def on_message(message):
 
 # Login token
 # Note that this line must come LAST
-client.run('NDg2MjI4MzE1NDY0Nzk0MTEy.Dm8DQQ.ksDSeK-7JpxClXg3C-aCTkE4s9o')
+client.run('')
